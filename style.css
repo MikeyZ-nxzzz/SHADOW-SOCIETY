@@ -11,6 +11,8 @@
     --success-hover: #2ea043;
     --warning-color: #d29922;
     --error-color: #f85149;
+    --whatsapp-green: #25D366;
+    --whatsapp-green-hover: #20bd5c;
 }
 
 /* Reset et styles de base */
@@ -438,6 +440,103 @@ nav ul li a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Page WhatsApp */
+.whatsapp-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.whatsapp-card {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--whatsapp-green);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounce 2s infinite;
+}
+
+.whatsapp-card h3 {
+    color: var(--whatsapp-green);
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.whatsapp-card p {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.whatsapp-btn {
+    background-color: var(--whatsapp-green);
+    width: 100%;
+    color: white;
+    font-weight: 600;
+}
+
+.whatsapp-btn:hover {
+    background-color: var(--whatsapp-green-hover);
+    transform: translateY(-2px);
+}
+
+.whatsapp-info {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.whatsapp-info h3 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.whatsapp-info ul {
+    list-style: none;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.whatsapp-info li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 16px;
+}
+
+.whatsapp-info li:last-child {
+    border-bottom: none;
+}
+
+/* Animation pour les icônes WhatsApp */
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    80% {
+        transform: translateY(-5px);
+    }
+}
+
 /* Profil */
 #profile-page h1 {
     text-align: center;
@@ -567,11 +666,13 @@ nav ul li a:hover {
     margin-bottom: 10px;
 }
 
+#contact-page a,
 #whatsapp-page a {
     color: var(--accent-color);
     text-decoration: none;
 }
 
+#contact-page a:hover,
 #whatsapp-page a:hover {
     text-decoration: underline;
 }
@@ -657,6 +758,23 @@ nav ul li a:hover {
     .product-card:hover .product-icon {
         transform: scale(1.05);
     }
+    
+    .whatsapp-links {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .whatsapp-card {
+        padding: 20px;
+    }
+    
+    .whatsapp-icon {
+        font-size: 48px;
+    }
+    
+    .whatsapp-info {
+        padding: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -683,6 +801,10 @@ nav ul li a:hover {
     .product-icon {
         font-size: 36px;
         margin-bottom: 10px;
+    }
+    
+    .whatsapp-icon {
+        font-size: 36px;
     }
 }
 
@@ -721,69 +843,3 @@ nav ul li a:hover {
 .status-en attente { color: #d29922; }
 .status-traité { color: #238636; }
 .status-annulé { color: #f85149; }
-/* Styles pour la page WhatsApp */
-.whatsapp-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.whatsapp-card {
-    background-color: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.whatsapp-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.whatsapp-icon {
-    font-size: 64px;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.whatsapp-card h3 {
-    color: var(--accent-color);
-    margin-bottom: 15px;
-    font-size: 22px;
-}
-
-.whatsapp-card p {
-    color: var(--text-secondary);
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-
-.whatsapp-card .btn {
-    background-color: #25D366; /* Vert WhatsApp */
-    width: 100%;
-}
-
-.whatsapp-card .btn:hover {
-    background-color: #20bd5c;
-    transform: translateY(-2px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .whatsapp-links {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .whatsapp-card {
-        padding: 20px;
-    }
-    
-    .whatsapp-icon {
-        font-size: 48px;
-    }
-}
