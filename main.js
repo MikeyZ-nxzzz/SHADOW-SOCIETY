@@ -19,7 +19,7 @@ class AppState {
             },
             natcash: {
                 name: "Pierre Louis Jinolyse",
-                number: "+50939442808"
+                number: "+50935669814"  // Numéro modifié ici
             }
         };
     }
@@ -269,7 +269,7 @@ class PageManager {
                 this.updateProfileDisplay();
                 break;
             case 'admin':
-                if (this.appState.currentUser.isAdmin) {
+                if (this.appState.currentUser && this.appState.currentUser.isAdmin) {
                     document.getElementById('admin-page').classList.add('active');
                     this.updateAdminDisplay();
                 }
@@ -294,6 +294,16 @@ class PageManager {
             document.getElementById('profile-name').textContent = this.appState.currentUser.name;
             document.getElementById('profile-phone').textContent = this.appState.currentUser.phone || 'Non renseigné';
         }
+    }
+
+    updateCartDisplay() {
+        const cartManager = new CartManager(this.appState);
+        cartManager.updateCartDisplay();
+    }
+
+    updateAdminDisplay() {
+        const adminManager = new AdminManager(this.appState);
+        adminManager.updateAdminDisplay();
     }
 }
 
@@ -527,13 +537,12 @@ class AdminManager {
             this.savePaymentInfo();
         });
 
-        // Initialiser les informations de paiement dans l'admin
+        // Initialiser les informations de paiement dans l'admin avec le nouveau numéro
         document.getElementById('admin-moncash-name').value = this.appState.paymentInfo.moncash.name;
         document.getElementById('admin-moncash-number').value = this.appState.paymentInfo.moncash.number;
         document.getElementById('admin-natcash-name').value = this.appState.paymentInfo.natcash.name;
         document.getElementById('admin-natcash-number').value = this.appState.paymentInfo.natcash.number;
 
-        // Mettre à jour les informations de paiement affichées
         this.updatePaymentInfo();
     }
 
@@ -556,7 +565,7 @@ class AdminManager {
                     <p>Client: ${order.userName} (${order.user})</p>
                     <p>Date: ${order.date}</p>
                     <p>Total: ${order.total} HTG</p>
-                    <p>Statut: <span class="status-${order.status}">${order.status}</span></p>
+                    <p>Statut: <span class="status-${order.status.replace(' ', '-')}">${order.status}</span></p>
                 </div>
                 <div class="order-details">
                     <h5>Détails de la commande:</h5>
@@ -674,15 +683,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         pageManager.showPage('auth');
     }
-
-    // Ajouter des styles pour les statuts de commande
-    const style = document.createElement('style');
-    style.textContent = `
-        .status-en attente { color: #d29922; }
-        .status-traité { color: #238636; }
-        .status-annulé { color: #f85149; }
-    `;
-    document.head.appendChild(style);
 });
 
 // Exposer adminManager globalement pour les boutons dans le HTML
