@@ -1,3 +1,4 @@
+// firebase.js
 class FirebaseManager {
     constructor() {
         this.db = window.firebaseDB;
@@ -10,6 +11,7 @@ class FirebaseManager {
             const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js");
             
             const userCredential = await createUserWithEmailAndPassword(this.auth, userData.email, userData.password);
+            
             await setDoc(doc(this.db, "users", userCredential.user.uid), {
                 name: userData.name,
                 phone: userData.phone,
@@ -17,8 +19,9 @@ class FirebaseManager {
                 createdAt: new Date().toISOString()
             });
             
-            return { success: true };
+            return { success: true, user: userCredential.user };
         } catch (error) {
+            console.error("Erreur inscription:", error);
             return { success: false, error: error.message };
         }
     }
@@ -26,11 +29,19 @@ class FirebaseManager {
     async loginUser(email, password) {
         try {
             const { signInWithEmailAndPassword } = await import("https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js");
-            await signInWithEmailAndPassword(this.auth, email, password);
-            return { success: true };
+            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+            return { success: true, user: userCredential.user };
         } catch (error) {
             return { success: false, error: error.message };
         }
+    }
+
+    async getCurrentUser() {
+        return new Promise((resolve) => {
+            this.auth.onAuthStateChanged((user) => {
+                resolve(user);
+            });
+        });
     }
 }
 
